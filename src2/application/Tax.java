@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import entities.TaxPayer;
 
@@ -15,6 +16,7 @@ public class Tax {
 		System.out.print("How many taxpayers will you enter? ");
 		int n = sc.nextInt();
 		System.out.println();
+		sc.nextLine();
 		
 		List<TaxPayer> list = new ArrayList<>();
 		
@@ -39,11 +41,21 @@ public class Tax {
 			System.out.println();
 			list.add(new TaxPayer(salaryIncome, servicesIncome, capitalIncome, healthSpending, educationSpending));
 		}
+		int i = 0;
 		for(TaxPayer obj : list) {
-			//int i = 0;
-			System.out.println(obj);
+			if(i == 0) {
+				System.out.printf("Resume of %dst contributor: \n", (i+1));
+			}else if(i == 1) {
+				System.out.printf("Resume of %dnd contributor: \n", (i+1));
+			}else {
+				System.out.printf("Resume of %drd contributor: \n", (i+1));
+			}
+			System.out.printf("Total gross tax: %.2f\n", obj.grossTax());
+			System.out.printf("Rebate: %.2f\n", obj.taxRebate());
+			System.out.printf("Tax due: %.2f\n", obj.netTax());
+			i++;
+			System.out.println(" ");
 		}
 		sc.close();
 	}
-
 }
